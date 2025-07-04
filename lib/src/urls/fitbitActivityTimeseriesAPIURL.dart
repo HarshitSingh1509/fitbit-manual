@@ -130,6 +130,40 @@ class FitbitActivityTimeseriesAPIURL extends FitbitAPIURL {
   static String _getBaseURL(String? userID) {
     return 'https://api.fitbit.com/1/user/$userID/activities/tracker';
   } // _getBaseURL
+
+  static String _getActivityBaseUrl(String? userID) {
+    return 'https://api.fitbit.com/1/user/$userID/activities';
+  }
+
+  /// Generates a [FitbitActivityTimeseriesAPIURL] to get [FitbitActivityTimeseriesData] of the steps of the day.
+  factory FitbitActivityTimeseriesAPIURL.todayStepData({required FitbitCredentials fitbitCredentials}) {
+    String dateStr = Formats.onlyDayDateFormatTicks.format(DateTime.now());
+    return FitbitActivityTimeseriesAPIURL(
+      url: '${_getBaseURL(fitbitCredentials.userID)}/steps/date/$dateStr/1d.json',
+      resourceString: 'steps',
+      fitbitCredentials: fitbitCredentials,
+    );
+  }
+
+  /// Generates a [FitbitActivityTimeseriesAPIURL] to get [FitbitActivityTimeseriesData] of the calories of the day.
+  factory FitbitActivityTimeseriesAPIURL.todayCaloriesData({required FitbitCredentials fitbitCredentials}) {
+    String dateStr = Formats.onlyDayDateFormatTicks.format(DateTime.now());
+    return FitbitActivityTimeseriesAPIURL(
+      url: '${_getBaseURL(fitbitCredentials.userID)}/calories/date/$dateStr/1d.json',
+      resourceString: 'calories',
+      fitbitCredentials: fitbitCredentials,
+    );
+  }
+
+  /// Generates a [FitbitActivityTimeseriesAPIURL] to get [FitbitActivityTimeseriesData] of the calories BMR of the day.
+  factory FitbitActivityTimeseriesAPIURL.todayCaloriesBMRData({required FitbitCredentials fitbitCredentials}) {
+    String dateStr = Formats.onlyDayDateFormatTicks.format(DateTime.now());
+    return FitbitActivityTimeseriesAPIURL(
+      url: '${_getActivityBaseUrl(fitbitCredentials.userID)}/caloriesBMR/date/$dateStr/1d.json',
+      resourceString: 'caloriesBMR',
+      fitbitCredentials: fitbitCredentials,
+    );
+  }
 } // FitbitActivityTimeseriesAPIURL
 
 /// enumeration for the resource options that you can specify in the [FitbitActivityTimeseriesAPIURL]
