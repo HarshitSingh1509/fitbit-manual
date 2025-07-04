@@ -42,7 +42,12 @@ class FitbitActivityTimeseriesDataManager extends FitbitDataManager {
   /// A private method that extracts [FitbitActivityTimeseriesData] from the given response.
   List<FitbitActivityTimeseriesData> _extractFitbitActivityTimeseriesData(
       dynamic response, String? userID, String type) {
-    final data = response['activities-tracker-$type'];
+    late final data;
+    if(response['activities-tracker-$type'] == null) {
+      data = response['activities-tracker$type'];
+    } else {
+      data = response['activities-tracker-$type'];
+    }
     List<FitbitActivityTimeseriesData> atDatapoints =
         List<FitbitActivityTimeseriesData>.empty(growable: true);
 
