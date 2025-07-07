@@ -39,7 +39,7 @@ class FitbitHeartRateIntradayDataManager extends FitbitDataManager {
       dynamic response, String? userId) {
     final dateOfMonitoring =
         DateTime.parse(response['activities-heart'][0]['dateTime']);
-    final data = response['activities-heart-intraday']['dataset'];
+    final data = response['activities-heart-intraday']?['dataset'] ?? [];
     List<FitbitHeartRateIntradayData> heartDataPoints =
         List<FitbitHeartRateIntradayData>.empty(growable: true);
 
